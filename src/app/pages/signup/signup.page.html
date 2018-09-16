@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>signup</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Create a new account</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <img src="http://placehold.it/300x100">
+  <form [formGroup]="signupForm" novalidate>
 
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-input formControlName="fullName" type="text" placeholder="What's your name stranger?">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input formControlName="email" type="email" placeholder="Your email address">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input formControlName="password" type="password" placeholder="Your password">
+      </ion-input>
+    </ion-item>
+
+    <ion-button expand="block" (submit)="userSignup(signupForm)" [disabled]="!signupForm.valid">
+      Create an Account
+    </ion-button>
+  </form>
 </ion-content>
