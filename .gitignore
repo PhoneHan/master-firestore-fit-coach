@@ -34,3 +34,5 @@ Thumbs.db
 UserInterfaceState.xcuserstate
 
 credentials.ts
+google-services.json
+GoogleService-Info.plist
