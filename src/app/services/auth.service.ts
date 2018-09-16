@@ -2,13 +2,18 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public userId: string = null;
-  constructor(private afAuth: AngularFireAuth, private firestore: AngularFirestore) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore,
+    private fcm: FCM
+  ) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userId = user.uid;
@@ -24,10 +29,13 @@ export class AuthService {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
-        this.firestore.doc(`/userProfile/ ${userCredential.user.uid} /`).set({
-          admin: true,
-          email,
-          fullName,
+        this.fcm.getToken().then(token => {
+          this.firestore.doc(`/userProfile/ ${userCredential.user.uid} /`).set({
+            admin: true,
+            email,
+            fullName,
+            token,
+          });
         });
       });
   }
