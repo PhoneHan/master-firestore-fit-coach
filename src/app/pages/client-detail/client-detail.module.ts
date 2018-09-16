@@ -6,12 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ClientDetailPage } from './client-detail.page';
+import { MomentModule } from 'ngx-moment';
 
 const routes: Routes = [
   {
     path: '',
-    component: ClientDetailPage
-  }
+    component: ClientDetailPage,
+  },
 ];
 
 @NgModule({
@@ -19,8 +20,9 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    MomentModule,
   ],
-  declarations: [ClientDetailPage]
+  declarations: [ClientDetailPage],
 })
 export class ClientDetailPageModule {}
