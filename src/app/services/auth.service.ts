@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import * as firebase from 'firebase';
 import { FCM } from '@ionic-native/fcm/ngx';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
@@ -30,14 +31,15 @@ export class AuthService {
       .createUserWithEmailAndPassword(email, password)
       .then(userCredential => {
         this.fcm.getToken().then(token => {
-          this.firestore.doc(`/userProfile/ ${userCredential.user.uid} /`).set({
+          this.firestore.doc(`userProfile/${userCredential.user.uid}`).set({
             admin: true,
             email,
             fullName,
             token,
           });
         });
-      });
+      })
+      .catch(error => console.error(error));
   }
 
   userLogout(): Promise<void> {
@@ -52,9 +54,9 @@ export class AuthService {
     return new Promise((resolve, reject) => {
       firebase
         .firestore()
-        .doc(`userProfile/${this.userId}`)
+        .doc(`/userProfile/${this.userId}/`)
         .get()
-        .then(adminSnapshot => {
+        .then((adminSnapshot: firebase.firestore.DocumentSnapshot) => {
           resolve(adminSnapshot.data().admin);
         });
     });
