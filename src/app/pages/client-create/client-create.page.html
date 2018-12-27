@@ -28,7 +28,7 @@
       <ion-input formControlName="startingWeight" type="number" placeholder="Your client's starting weight"></ion-input>
     </ion-item>
 
-    <ion-button expand="block" (submit)="clientCreate(clientCreateForm)" [disabled]="!clientCreateForm.valid">
+    <ion-button expand="block" (click)="clientCreate(clientCreateForm)" [disabled]="!clientCreateForm.valid">
       ADD NEW CLIENT
     </ion-button>
 

@@ -34,7 +34,7 @@
           <ion-input formControlName="weight" type="number" placeholder="Your weight in pounds"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" (submit)="weightTrack(weightTrackForm)" [disabled]="!weightTrackForm.valid">
+        <ion-button expand="block" (click)="weightTrack(weightTrackForm)" [disabled]="!weightTrackForm.valid">
           TRACK NOW
         </ion-button>
 
